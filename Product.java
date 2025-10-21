@@ -45,9 +45,9 @@ class Product implements Serializable {
     public boolean isLowStock() {
         return quantity <= threshold;
     }
-
     
     public String toString() {
         return productId + " - " + productName + " | Qty: " + quantity;
     }
+
 }
