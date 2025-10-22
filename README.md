@@ -56,10 +56,10 @@ this is my first project
 =======================
 File Name                                                      Description
 
-Product.java	                                                 Represents a product with ID, name, quantity, and threshold.
-Warehouse.java	                                               Manages warehouse inventory, products, observers, and stock operations.
-Main.java	                                                     Entry point of the program with interactive menu for user operations.and saving or loading operations
-StockObserver.java                                             in this create interface for observing stock
+Product.java :-                                                Represents a product with ID, name, quantity, and threshold.
+Warehouse.java :-	                                             Manages warehouse inventory, products, observers, and stock operations.
+Main.java	 :-                                                  Entry point of the program with interactive menu for user operations.and saving or loading operations
+StockObserver.java  :-                                         in this create interface for observing stock
 
 
 
