@@ -1,7 +1,7 @@
 import java.io.Serializable;
+import java.util.*;
 
-//this is Product class
-class Product implements Serializable {
+public class Product implements Serializable {
     private int productId;
     private String productName;
     private int quantity;
@@ -14,20 +14,20 @@ class Product implements Serializable {
         this.threshold = threshold;
     }
 
-    public int getProductId() { 
-        return productId; 
+    public int getProductId() {
+        return productId;
     }
 
-    public String getProductName() { 
-        return productName; 
+    public String getProductName() {
+        return productName;
     }
 
-    public int getQuantity() { 
-        return quantity; 
+    public int getQuantity() {
+        return quantity;
     }
 
-    public int getThreshold() { 
-        return threshold; 
+    public int getThreshold() {
+        return threshold;
     }
 
     public synchronized void increaseQuantity(int qty) {
@@ -38,16 +38,15 @@ class Product implements Serializable {
         if (qty <= quantity) {
             quantity -= qty;
         } else {
-            System.out.println("Not enough stock available!");
+            System.out.println("Not enough stock available for " + productName);
         }
     }
 
     public boolean isLowStock() {
         return quantity <= threshold;
     }
-    
-    public String toString() {
-        return productId + " - " + productName + " | Qty: " + quantity;
-    }
 
+    public String toString() {
+        return productId + " - " + productName + " | Qty: " + quantity + " | Threshold: " + threshold;
+    }
 }
