@@ -3,18 +3,19 @@ import java.util.*;
 
 // here generate alert 
 class AlertService implements StockObserver {
-    @Override
+
     public void onLowStock(Product product) {
-        System.out.println(" ALERT: Low stock for " + product.getProductName() +
+        System.out.println("ALERT: Low stock for " + product.getProductName() +
                 " — only " + product.getQuantity() + " left!");
     }
 }
 
-// hare Handles saving data 
+// hare Handles saving data
 class FileHandler {
     private static final String FILE_NAME = "data.txt";
 
-    // Save all warehouse & product data in readable format in txt file and here txt file is data.txt
+    // Save all warehouse & product data in readable format in txt file and here txt
+    // file is data.txt
     public static void saveData(List<Warehouse> warehouses) {
         try (PrintWriter writer = new PrintWriter(FILE_NAME)) {
             for (Warehouse w : warehouses) {
@@ -44,12 +45,34 @@ class FileHandler {
 
     // Load serialized data from file
     public static List<Warehouse> loadData() {
-        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(FILE_NAME))) {
-            return (List<Warehouse>) in.readObject();
-        } catch (Exception e) {
-            return new ArrayList<>();
+        List<Warehouse> warehouses = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME))) {
+            String line;
+            Warehouse currentWarehouse = null;
+            while ((line = reader.readLine()) != null) {
+                if (line.startsWith("Warehouse:")) {
+                    String name = line.substring(line.indexOf(":") + 1).trim();
+                    currentWarehouse = new Warehouse(name);
+                    warehouses.add(currentWarehouse);
+                } else if (line.startsWith("Product ID:")) {
+                    int id = Integer.parseInt(line.substring(line.indexOf(":") + 1).trim());
+                    String name = reader.readLine().split(":")[1].trim();
+                    int qty = Integer.parseInt(reader.readLine().split(":")[1].trim());
+                    int th = Integer.parseInt(reader.readLine().split(":")[1].trim());
+                    Product p = new Product(id, name, qty, th);
+                    if (currentWarehouse != null) {
+                        currentWarehouse.addProduct(p);
+                    }
+                    reader.readLine(); 
+                }
+            }
+            System.out.println("Readable data loaded successfully from " + FILE_NAME);
+        } catch (IOException e) {
+            System.out.println("Error reading readable data: " + e.getMessage());
         }
+        return warehouses;
     }
+
 }
 
 // this is main class
