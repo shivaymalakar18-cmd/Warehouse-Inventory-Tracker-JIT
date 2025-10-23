@@ -62,4 +62,56 @@ Main.java	 :-                                                  Entry point of th
 StockObserver.java  :-                                         in this create interface for observing stock
 
 
+ @ How to Run :-
+===============
+  Compile all files :   javac *.java
+  -------------------
+  
+  Run the application :  java Main
+  ---------------------  
 
+  Follow the interactive menu :
+  ------------------------------
+  Add warehouses
+  Add products to warehouses
+  Receive shipments
+  Fulfill orders
+  View inventory
+  Exit and save data
+  
+  Data persistence :
+  -------------------
+  Data will be saved to data.txt in readable format.
+  Next time you run the program, it will load the previous state automatically.
+
+  @ Design Highlights :-
+  =======================
+
+   Observer Pattern :
+   -------------------
+   StockObserver interface and AlertService implement alerts.
+   Warehouses notify observers when stock is low.
+
+   Multithreading :
+   -----------------
+   Receiving shipment and fulfilling order runs in separate threads.
+   Simultaneous operations possible without blocking.
+
+   Error Handling:
+   -----------------
+   Handles invalid product IDs, insufficient stock, and invalid warehouse selection gracefully.
+ 
+   Modular Design :
+   ----------------
+   Clear separation between Product, Warehouse, FileHandler with Main class , and AlertService.
+
+
+   @ Example Workflow :-
+   =======================
+
+   1. Add Warehouse: "Main Storage"
+   2. Add Product:    ID: 101, Name: Laptop, Quantity: 10, Threshold: 5
+   3. Receive Shipment: +10 units of Laptop → Total = 20
+   4. Fulfill Order:   16 units → Remaining = 4 → Low stock alert triggered
+   5. View Inventory: Shows current stock of all products
+   6. Exit: Data saved to data.txt
